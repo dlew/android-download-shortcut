@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="net.danlew.download"
+<manifest package="net.danlew.download"
+          xmlns:android="http://schemas.android.com/apk/res/android"
         >
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+            android:name=".DownloadApplication"
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
@@ -37,6 +38,8 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="137f87beecc9964a6cd6868b3e04ec8ba452fe5e"/>
     </application>
 
 </manifest>
