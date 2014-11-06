@@ -34,7 +34,7 @@ public class DownloadActivity extends Activity {
             uri = intent.getData();
         }
 
-        if (uri != null) {
+        if (uri != null && URLUtil.isNetworkUrl(uri.toString())) {
             DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             DownloadManager.Request request = new DownloadManager.Request(uri);
             dm.enqueue(request);
