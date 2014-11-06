@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.URLUtil;
 import android.widget.Toast;
+import com.crashlytics.android.Crashlytics;
 
 public class DownloadActivity extends Activity {
 
@@ -37,13 +38,23 @@ public class DownloadActivity extends Activity {
         if (uri != null && URLUtil.isNetworkUrl(uri.toString())) {
             DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             DownloadManager.Request request = new DownloadManager.Request(uri);
-            dm.enqueue(request);
+            try {
+                dm.enqueue(request);
+            }
+            catch (IllegalArgumentException e) {
+                Crashlytics.getInstance().logException(e);
+                handleFailure();
+            }
         }
         else {
-            Toast.makeText(this, R.string.error_invalid, Toast.LENGTH_LONG).show();
+            handleFailure();
         }
 
         finish();
+    }
+
+    private void handleFailure() {
+        Toast.makeText(this, R.string.error_invalid, Toast.LENGTH_LONG).show();
     }
 
 }
